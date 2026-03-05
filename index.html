@@ -5,152 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>মেধাবী - মেধা অন্বেষণ প্রতিযোগিতা</title>
     
-    <!-- গুগল ফন্ট: Hind Siliguri ইম্পোর্ট করা হচ্ছে -->
+    <!-- গুগল ফন্ট: Hind Siliguri -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* পুরো পেজের বেসিক ডিজাইন */
         :root {
-            --primary-color: #006837; /* আস-সুন্নাহর লোগোর সবুজ ভাব */
-            --accent-color: #f39c12; /* হাইলাইটের জন্য কমলা */
-            --bg-color: #f0f2f5;
+            --primary-color: #006837; 
+            --accent-color: #f39c12; 
             --text-color: #333;
         }
 
         body {
-            font-family: 'Hind Siliguri', sans-serif; /* তোমার চাওয়া ফন্ট */
+            font-family: 'Hind Siliguri', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
+            /* একটি সুন্দর সবুজ গ্রাডিয়েন্ট ব্যাকগ্রাউন্ড */
+            background: linear-gradient(to left, #8f94fb, #4e54c8); 
+            background: -webkit-linear-gradient(to left, #11998e, #38ef7d);  
+            background: linear-gradient(to left, #11998e, #38ef7d); 
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden; /* সাইড স্ক্রল বন্ধ রাখা */
         }
 
-        /* কন্টেইনার - মাঝখানের সাদা বক্স */
+        /* অ্যানিমেশন এরিয়া (ব্যাকগ্রাউন্ডে ভাসমান আইকন) */
+        .area {
+            background: #4e54c8;  
+            background: -webkit-linear-gradient(to left, #0f2027, #203a43, #2c5364);  
+            background: linear-gradient(to left, #0f2027, #203a43, #2c5364); /* ডার্ক থিম যাতে চাঁদ তারা ফুটে ওঠে */
+            width: 100%;
+            height: 100vh; /* পুরো স্ক্রিন */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1; /* এটা লেখার নিচে থাকবে */
+        }
+
+        .circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .circles li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+            color: rgba(255, 255, 255, 0.5); /* আইকনের রং */
+            font-size: 30px;
+            text-align: center;
+            background: transparent; /* বক্সের ব্যাকগ্রাউন্ড নাই, শুধু আইকন */
+        }
+
+        /* বিভিন্ন আইকনের পজিশন এবং সাইজ কন্ট্রোল */
+        .circles li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-duration: 25s; font-size: 40px; }
+        .circles li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: 2s; font-size: 20px; }
+        .circles li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-duration: 25s; animation-delay: 4s; font-size: 50px; }
+        .circles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-duration: 18s; animation-delay: 0s; font-size: 30px; }
+        .circles li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-duration: 20s; animation-delay: 0s; font-size: 25px; }
+        .circles li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-duration: 30s; animation-delay: 3s; font-size: 60px; }
+        .circles li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-duration: 40s; animation-delay: 7s; font-size: 35px; }
+        .circles li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-duration: 45s; animation-delay: 15s; font-size: 20px; }
+        .circles li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-duration: 35s; animation-delay: 2s; font-size: 25px; }
+        .circles li:nth-child(10){ left: 85%; width: 150px; height: 150px; animation-duration: 11s; animation-delay: 0s; font-size: 45px; }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+
+        /* মেইন কন্টেন্ট বক্স */
         .container {
+            position: relative; /* ব্যাকগ্রাউন্ডের উপরে থাকার জন্য */
             max-width: 800px;
             margin: 40px auto;
-            background: white;
+            background: white; /* লেখা পড়ার জন্য সাদা ব্যাকগ্রাউন্ড */
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border-top: 8px solid var(--primary-color);
         }
 
-        /* হেডার বা লোগো সেকশন */
-        header {
-            text-align: center;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
+        /* বাকি ডিজাইন আগের মতোই */
+        header { text-align: center; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }
+        .logo-placeholder { font-size: 40px; font-weight: 700; color: var(--primary-color); margin-bottom: 5px; }
+        .sub-header { font-size: 16px; color: #555; font-weight: 500; }
+        h1, h2, h3 { color: var(--primary-color); }
+        h2.notice-title { text-align: center; text-decoration: underline; text-underline-offset: 8px; margin-bottom: 30px; }
+        p { font-size: 18px; text-align: justify; }
         
-        /* লোগোর জন্য (যদি লোগো থাকে, পরে বসাতে পারবে) */
-        .logo-placeholder {
-            font-size: 40px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
+        .highlight-box { background-color: #e8f5e9; border-left: 5px solid var(--primary-color); padding: 15px 20px; margin: 20px 0; border-radius: 4px; }
         
-        .sub-header {
-            font-size: 16px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        /* শিরোনাম ডিজাইন */
-        h1, h2, h3 {
-            color: var(--primary-color);
-        }
-
-        h2.notice-title {
-            text-align: center;
-            text-decoration: underline;
-            text-underline-offset: 8px;
-            margin-bottom: 30px;
-        }
-
-        /* প্যারাগ্রাফ ডিজাইন */
-        p {
-            font-size: 18px;
-            text-align: justify; /* লেখাগুলো দুই পাশে সমান থাকবে */
-        }
-
-        /* সিলেবাস বক্স */
-        .highlight-box {
-            background-color: #e8f5e9;
-            border-left: 5px solid var(--primary-color);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-
-        /* ধাপ বা পর্বগুলোর ডিজাইন (Cards) */
-        .round-card {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: transform 0.2s;
-        }
-        .round-card:hover {
-            transform: translateY(-3px); /* মাউস নিলে একটু উপরে উঠবে */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-color: var(--primary-color);
-        }
-        .round-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #d35400;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        /* পুরস্কারের লিস্ট ডিজাইন */
-        ul.prize-list {
-            list-style: none;
-            padding: 0;
-        }
-        ul.prize-list li {
-            background: #fff8e1;
-            padding: 10px 15px;
-            margin-bottom: 8px;
-            border-radius: 5px;
-            font-weight: 600;
-            border-left: 4px solid var(--accent-color);
-        }
-
-        /* ফুটার */
-        footer {
-            margin-top: 50px;
-            text-align: center;
-            font-size: 14px;
-            color: #666;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-        }
-
-        /* মোবাইলের জন্য রেস্পন্সিভ */
+        .round-card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin-bottom: 20px; transition: transform 0.2s; }
+        .round-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-color: var(--primary-color); }
+        .round-title { font-size: 20px; font-weight: 700; color: #d35400; margin-bottom: 10px; display: block; }
+        
+        ul.prize-list { list-style: none; padding: 0; }
+        ul.prize-list li { background: #fff8e1; padding: 10px 15px; margin-bottom: 8px; border-radius: 5px; font-weight: 600; border-left: 4px solid var(--accent-color); }
+        
+        footer { margin-top: 50px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #eee; padding-top: 20px; }
+        
         @media (max-width: 600px) {
-            .container {
-                margin: 10px;
-                padding: 20px;
-            }
-            .logo-placeholder {
-                font-size: 32px;
-            }
+            .container { margin: 15px; padding: 20px; }
+            .logo-placeholder { font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- ব্যাকগ্রাউন্ড অ্যানিমেশন এরিয়া -->
+    <div class="area">
+        <ul class="circles">
+            <!-- এখানে ইমোজি চেঞ্জ করে অন্য কিছুও দিতে পারো -->
+            <li>🌙</li>
+            <li>✨</li>
+            <li>☪️</li>
+            <li>🌙</li>
+            <li>⭐</li>
+            <li>✨</li>
+            <li>🌙</li>
+            <li>☪️</li>
+            <li>✨</li>
+            <li>⭐</li>
+        </ul>
+    </div>
+
+    <!-- মেইন কন্টেন্ট (সাদা কাগজের অংশ) -->
     <div class="container">
         <header>
-            <!-- লোগো বা শিরোনাম -->
             <div class="logo-placeholder">মেধাবী</div>
             <div class="sub-header">আস-সুন্নাহ ফাউন্ডেশনের একটি উদ্যোগ</div>
             <div style="font-size: 14px; margin-top: 5px;">কনটেইনার পোর্ট রোড, (ঔষধ ফ্যাক্টরি) হাসনাবাদ, দক্ষিণ কেরানীগঞ্জ, ঢাকা-১৩১১</div>
@@ -171,21 +173,18 @@
         <h3>📅 প্রতিযোগিতার পর্ব ও সময়সূচি:</h3>
         <p>প্রতিযোগিতাটি মোট তিন পর্বে অনুষ্ঠিত হবে:</p>
 
-        <!-- ১ম পর্ব -->
         <div class="round-card">
             <span class="round-title">❖ ১ম পর্ব (প্রিলিমিনারি - MCQ)</span>
             <p>১০০টি এমসিকিউ (৪০ মিনিট)। সর্বোচ্চ নম্বরের ভিত্তিতে সেরা ৩০ জন ২য় পর্বের জন্য নির্বাচিত হবে।</p>
             <p><strong>তারিখ ও সময়:</strong> ৬ মার্চ ২০২৬, শুক্রবার, বাদ ফজর।</p>
         </div>
 
-        <!-- ২য় পর্ব -->
         <div class="round-card">
             <span class="round-title">❖ ২য় পর্ব (লিখিত পরীক্ষা)</span>
             <p>১০টি প্রশ্ন (১ ঘণ্টা)। ১ম ধাপে উত্তীর্ণ ৩০ জনের মধ্য থেকে সেরা ১০ জন চূড়ান্ত পর্বের জন্য নির্বাচিত হবে।</p>
             <p><strong>তারিখ ও সময়:</strong> ৬ মার্চ ২০২৬, শুক্রবার, বাদ জুম্মা।</p>
         </div>
 
-        <!-- ৩য় পর্ব -->
         <div class="round-card">
             <span class="round-title">❖ ৩য় পর্ব (মৌখিক পরীক্ষা)</span>
             <p>নির্বাচিত ১০ জনের মৌখিক পরীক্ষার ফলাফলের ভিত্তিতে চূড়ান্তভাবে ৫ জনকে বিজয়ী ঘোষণা করা হবে।</p>
@@ -213,7 +212,6 @@
             দাওয়াহ বিভাগ, মেধাবী<br>
             আস-সুন্নাহ ফাউন্ডেশনের একটি উদ্যোগ।
         </footer>
-
     </div>
 
 </body>
